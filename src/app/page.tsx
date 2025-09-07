@@ -1,15 +1,27 @@
 'use client';
 
-import LoginWidget from '@/widgets/LoginWidget';
 import { Flavor } from '@/types/flavors';
+import BannerHome from '@/widgets/BannerHonme';
+import JobsWidget from '@/widgets/JobsWidget';
 
 export default function Home() {
+  const selectedFlavor = Flavor.SPORT; 
+
   const handleLogin = (flavor: Flavor, credentials: { email: string; password: string }) => {
     console.log('Login attempt:', { flavor, credentials });
-    // Aquí puedes agregar la lógica de autenticación
+    
   };
 
   return (
-    <LoginWidget onLogin={handleLogin} />
+    <div>
+      <BannerHome 
+        onLogin={handleLogin} 
+        selectedFlavor={selectedFlavor} 
+      />
+      
+      <JobsWidget 
+        selectedFlavor={selectedFlavor}
+      />
+    </div>
   );
 }
