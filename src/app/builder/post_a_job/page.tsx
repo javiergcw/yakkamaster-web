@@ -5,6 +5,7 @@ import { Box, Modal, Paper, Typography, Button, IconButton } from '@mui/material
 import { Close as CloseIcon } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import { Flavor } from '@/types/flavors';
+import { CURRENT_FLAVOR, getCurrentFlavorConfig } from '@/types/favorGlobal';
 import { Routes } from '@/routes/Routes';
 import JobsiteSelector from '@/components/jobSites/JobsiteSelector';
 import { JobsiteCardData } from '@/components/common/JobsiteCard';
@@ -66,12 +67,13 @@ const jobsitesData: JobsiteCardData[] = [
 
 export default function PostAJobPage() {
     // Variable para cambiar el flavor fácilmente
-    const selectedFlavor = Flavor.LABOUR;
+    const selectedFlavor = CURRENT_FLAVOR;
+    const config = getCurrentFlavorConfig();
     const router = useRouter();
-    
+
     // Estado para el modal de confirmación
     const [showExitModal, setShowExitModal] = useState(false);
-    
+
     const {
         currentStepIndex,
         currentStep,
@@ -87,12 +89,12 @@ export default function PostAJobPage() {
 
     const handleNext = (data?: any) => {
         console.log('Moving to next step:', currentStep.title, data);
-        
+
         // Actualizar datos del formulario si se proporcionan
         if (data) {
             updateFormData(data);
         }
-        
+
         goToNextStep();
     };
 
@@ -152,92 +154,112 @@ export default function PostAJobPage() {
         switch (currentStep.component) {
             case 'JobsiteSelector':
                 return (
-                    <JobsiteSelector
-                        selectedFlavor={selectedFlavor}
-                        jobsitesData={jobsitesData}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <JobsiteSelector
+                            selectedFlavor={selectedFlavor}
+                            jobsitesData={jobsitesData}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                        />
+                    </div>
                 );
             case 'WorkerTypeSelector':
                 return (
-                    <WorkerTypeSelector
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                        onSelectionChange={handleWorkerTypeChange}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <WorkerTypeSelector
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                            onSelectionChange={handleWorkerTypeChange}
+                        />
+                    </div>
                 );
             case 'WorkerQuantitySelector':
                 return (
-                    <WorkerQuantitySelector
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                        onSelectionChange={handleWorkerQuantityChange}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <WorkerQuantitySelector
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                            onSelectionChange={handleWorkerQuantityChange}
+                        />
+                    </div>
                 );
             case 'LabourCostCalculator':
                 return (
-                    <LabourCostCalculator
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                        onCostChange={handleCostChange}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <LabourCostCalculator
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                            onCostChange={handleCostChange}
+                        />
+                    </div>
                 );
             case 'JobDateSelector':
                 return (
-                    <JobDateSelector
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                        onDateChange={handleDateChange}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <JobDateSelector
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                            onDateChange={handleDateChange}
+                        />
+                    </div>
                 );
             case 'JobTimeTypeSelector':
                 return (
-                    <JobTimeTypeSelector
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                        onTimeTypeChange={handleTimeTypeChange}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <JobTimeTypeSelector
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                            onTimeTypeChange={handleTimeTypeChange}
+                        />
+                    </div>
                 );
             case 'JobRequirementsSelector':
                 return (
-                    <JobRequirementsSelector
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                        onRequirementsChange={handleRequirementsChange}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <JobRequirementsSelector
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                            onRequirementsChange={handleRequirementsChange}
+                        />
+                    </div>
                 );
             case 'PaymentDateSelector':
                 return (
-                    <PaymentDateSelector
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                        onPaymentDateChange={handlePaymentDateChange}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <PaymentDateSelector
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                            onPaymentDateChange={handlePaymentDateChange}
+                        />
+                    </div>
                 );
             case 'SupervisorSelector':
                 return (
-                    <SupervisorSelector
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                        onSupervisorChange={handleSupervisorChange}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <SupervisorSelector
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                            onSupervisorChange={handleSupervisorChange}
+                        />
+                    </div>
                 );
             case 'JobReviewSelector':
                 return (
-                    <JobReviewSelector
-                        selectedFlavor={selectedFlavor}
-                        onNext={handleNext}
-                        onBack={handleBack}
-                    />
+                    <div style={{ backgroundColor: "#ffffff" }}>
+                        <JobReviewSelector
+                            selectedFlavor={selectedFlavor}
+                            onNext={handleNext}
+                            onBack={handleBack}
+                        />
+                    </div>
                 );
             default:
                 return null;
@@ -261,9 +283,9 @@ export default function PostAJobPage() {
                 canGoNext={showHeaderProgress}
                 nextButtonText="Next"
             />
-            <Box sx={{ 
-                mt: showHeaderProgress ? '80px' : '100px', 
-                pb: isFirstStep ? '20px' : '80px' 
+            <Box sx={{
+                mt: showHeaderProgress ? '80px' : '100px',
+                pb: isFirstStep ? '20px' : '80px'
             }}>
                 {renderCurrentStep()}
             </Box>
@@ -353,8 +375,8 @@ export default function PostAJobPage() {
                     </Box>
 
                     {/* Botones de acción */}
-                    <Box sx={{ 
-                        display: 'flex', 
+                    <Box sx={{
+                        display: 'flex',
                         gap: 2,
                         justifyContent: 'center'
                     }}>
@@ -362,9 +384,9 @@ export default function PostAJobPage() {
                             variant="outlined"
                             onClick={handleConfirmExit}
                             sx={{
-                                border: '1px solid #000000',
-                                borderColor: '#000000',
-                                color: '#000000',
+                                border: `1px solid ${config.primaryColor}`,
+                                borderColor: config.primaryColor,
+                                color: config.primaryColor,
                                 borderRadius: '8px',
                                 py: 1.5,
                                 px: 3,
@@ -374,8 +396,8 @@ export default function PostAJobPage() {
                                 minWidth: '120px',
                                 boxShadow: 'none',
                                 '&:hover': {
-                                    borderColor: '#000000',
-                                    backgroundColor: 'rgba(0,0,0,0.04)',
+                                    borderColor: config.primaryColor,
+                                    backgroundColor: `${config.primaryColor}10`,
                                     boxShadow: 'none',
                                 }
                             }}
@@ -386,8 +408,8 @@ export default function PostAJobPage() {
                             variant="contained"
                             onClick={handleCancelExit}
                             sx={{
-                                backgroundColor: '#FFD700',
-                                color: '#000000',
+                                backgroundColor: config.primaryColor,
+                                color: 'white',
                                 borderRadius: '8px',
                                 py: 1.5,
                                 px: 3,
@@ -397,7 +419,7 @@ export default function PostAJobPage() {
                                 minWidth: '120px',
                                 boxShadow: 'none',
                                 '&:hover': {
-                                    backgroundColor: '#FFC107',
+                                    backgroundColor: config.buttonHoverColor,
                                     boxShadow: 'none',
                                 }
                             }}

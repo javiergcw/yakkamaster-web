@@ -2,18 +2,17 @@
 
 import React from 'react';
 import { Box } from '@mui/material';
-
-import { Flavor } from '@/types/flavors';
+import { CURRENT_FLAVOR } from '@/types/favorGlobal';
 import { BannerJob, JobDetailCard } from '@/widgets/jobComponents';
 
 
        
 export default function JobPage() {
-  // Por defecto usamos SPORT, pero esto podría venir de props o contexto
-  const selectedFlavor = Flavor.SPORT;
+  // Usar flavor global
+  const selectedFlavor = CURRENT_FLAVOR;
 
   return (
-    <Box
+    <Box style={{ backgroundColor: "#ffffff" }}
     >
       <BannerJob selectedFlavor={selectedFlavor} />
       <JobDetailCard selectedFlavor={selectedFlavor} />

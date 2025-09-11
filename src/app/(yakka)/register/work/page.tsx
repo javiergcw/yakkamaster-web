@@ -14,16 +14,17 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Routes } from '@/routes/Routes';
 import { Flavor, flavorConfigs } from '@/types/flavors';
+import { CURRENT_FLAVOR, getCurrentFlavorConfig } from '@/types/favorGlobal';
 
 interface WorkPageProps {
   flavor?: Flavor;
 }
 
-const WorkPage: React.FC<WorkPageProps> = ({ flavor = Flavor.LABOUR }) => {
+const WorkPage: React.FC<WorkPageProps> = ({ flavor = CURRENT_FLAVOR }) => {
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const config = flavorConfigs[flavor];
+  const config = getCurrentFlavorConfig();
 
   const handleGoBack = () => {
     router.push(Routes.REGISTER);

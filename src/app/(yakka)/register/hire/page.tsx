@@ -26,6 +26,7 @@ import LicenseSelector from '@/components/hire/LicenseSelector';
 import RespectCommitment from '@/components/hire/RespectCommitment';
 import TermsAndConditions from '@/components/hire/TermsAndConditions';
 import ProfileSuccess from '@/components/hire/ProfileSuccess';
+import { CURRENT_FLAVOR, getCurrentFlavorConfig } from '@/types/favorGlobal';
 
 const steps = [
   'Personal Information',
@@ -38,12 +39,12 @@ interface HireRegisterPageProps {
 }
 
 const HireRegisterPage: React.FC<HireRegisterPageProps> = ({ 
-  flavor = Flavor.HOSPITALITY
+  flavor = CURRENT_FLAVOR
   
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const config = flavorConfigs[flavor];
+  const config = getCurrentFlavorConfig();
   
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState<any>({});
@@ -51,7 +52,7 @@ const HireRegisterPage: React.FC<HireRegisterPageProps> = ({
   const [licenses, setLicenses] = useState<string[]>([]);
   const [showRespectScreen, setShowRespectScreen] = useState(false);
   const [showTermsScreen, setShowTermsScreen] = useState(false);
-  const [showSuccessScreen, setShowSuccessScreen] = useState(true); // Cambiar a true para ver directamente
+  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {

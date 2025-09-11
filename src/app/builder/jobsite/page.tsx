@@ -15,6 +15,7 @@ import {
 } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import { Flavor, flavorConfigs } from '@/types/flavors';
+import { CURRENT_FLAVOR, getCurrentFlavorConfig } from '@/types/favorGlobal';
 import CreateJobsiteModal, { JobsiteFormData } from '@/components/common/CreateJobsiteModal';
 import JobsiteCard, { JobsiteCardData } from '@/components/common/JobsiteCard';
 
@@ -64,11 +65,11 @@ const jobsitesData: JobsiteCardData[] = [
 export default function JobsitePage() {
     const theme = useTheme();
     const router = useRouter();
-    
+
     // Usar el flavor para los colores
-    const selectedFlavor = Flavor.LABOUR; // Por defecto SPORT, se puede cambiar
+    const selectedFlavor = CURRENT_FLAVOR; // Usar flavor global
     const config = flavorConfigs[selectedFlavor];
-    
+
     const [openModal, setOpenModal] = useState(false);
 
     const handleOpenModal = () => setOpenModal(true);
@@ -93,7 +94,7 @@ export default function JobsitePage() {
             }}
         >
             {/* Header */}
-            <Container 
+            <Container
                 maxWidth="lg"
                 sx={{
                     px: { xs: 2, sm: 3, md: 4 }
@@ -101,10 +102,10 @@ export default function JobsitePage() {
             >
                 <Box sx={{ mb: 4 }}>
                     {/* Logo y navegación */}
-                    <Box sx={{ 
-                        display: 'flex', 
-                        justifyContent: 'space-between', 
-                        alignItems: 'center', 
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
                         mb: { xs: 2, md: 3 }
                     }}>
                         {/* Flecha y logo a la izquierda */}
@@ -123,62 +124,15 @@ export default function JobsitePage() {
                             </IconButton>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                 <Box
+                                    component="img"
+                                    src="/YAKKA.webp"
+                                    alt="YAKKA Logo"
                                     sx={{
-                                        width: 40,
-                                        height: 40,
-                                        backgroundColor: '#000000',
-                                        clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        position: 'relative'
+                                        width: { xs: 100, sm: 150 },
+                                        height: { xs: 30, sm: 40 },
+                                        objectFit: 'contain'
                                     }}
-                                >
-                                    {/* Casco amarillo */}
-                                    <Box
-                                        sx={{
-                                            width: 20,
-                                            height: 16,
-                                            backgroundColor: '#FFD700',
-                                            borderRadius: '50% 50% 40% 40%',
-                                            position: 'relative',
-                                            '&::after': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 2,
-                                                left: '50%',
-                                                transform: 'translateX(-50%)',
-                                                width: 2,
-                                                height: 8,
-                                                backgroundColor: '#000000',
-                                                borderRadius: '1px'
-                                            }
-                                        }}
-                                    />
-                                    {/* Letra Y */}
-                                    <Typography
-                                        sx={{
-                                            position: 'absolute',
-                                            bottom: 2,
-                                            color: '#000000',
-                                            fontWeight: 'bold',
-                                            fontSize: '12px',
-                                            lineHeight: 1
-                                        }}
-                                    >
-                                        Y
-                                    </Typography>
-                                </Box>
-                                <Typography
-                                    variant="h5"
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        color: '#000000',
-                                        fontSize: '24px'
-                                    }}
-                                >
-                                    YAKKA
-                                </Typography>
+                                />
                             </Box>
                         </Box>
 

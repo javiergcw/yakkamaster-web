@@ -60,62 +60,15 @@ export default function FormHeader({
         {/* Logo YAKKA */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <Box
+            component="img"
+            src="/YAKKA.webp"
+            alt="YAKKA Logo"
             sx={{
-              width: { xs: 32, sm: 40 },
-              height: { xs: 32, sm: 40 },
-              backgroundColor: '#000000',
-              clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative'
+              width: { xs: 100, sm: 150 },
+              height: { xs: 30, sm: 40 },
+              objectFit: 'contain'
             }}
-          >
-            {/* Casco amarillo */}
-            <Box
-              sx={{
-                width: { xs: 16, sm: 20 },
-                height: { xs: 12, sm: 16 },
-                backgroundColor: '#FFD700',
-                borderRadius: '50% 50% 40% 40%',
-                position: 'relative',
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 2,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 2,
-                  height: 8,
-                  backgroundColor: '#000000',
-                  borderRadius: '1px'
-                }
-              }}
-            />
-            {/* Letra Y */}
-            <Typography
-              sx={{
-                position: 'absolute',
-                bottom: 2,
-                color: '#000000',
-                fontWeight: 'bold',
-                fontSize: { xs: '10px', sm: '12px' },
-                lineHeight: 1
-              }}
-            >
-              Y
-            </Typography>
-          </Box>
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: 'bold',
-              color: '#000000',
-              fontSize: { xs: '18px', sm: '24px' }
-            }}
-          >
-            YAKKA
-          </Typography>
+          />
         </Box>
 
         {/* Botón X para cerrar */}

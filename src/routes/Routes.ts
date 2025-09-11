@@ -20,7 +20,15 @@ export const Routes = {
   BUILDER: '/builder',
   BUILDER_POST_JOB: '/builder/post_a_job',
   BUILDER_PROFILE: '/builder/profile',
+  BUILDER_PROFILE_EDIT: '/builder/profile/edit',
   JOBSITE: '/builder/jobsite',
+  BUILDER_REQUEST_WORKERS: '/builder/request-workers',
+  BUILDER_APPLICANTS: '/builder/applicants',
+  BUILDER_CHAT_WITH_WORKERS: '/builder/chat-with-workers',
+  BUILDER_INVOICES: '/builder/invoices',
+  BUILDER_EXPENSES: '/builder/expenses',
+  
+
   
   // Rutas abiertas
   JOB: '/job',

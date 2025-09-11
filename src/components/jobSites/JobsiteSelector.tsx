@@ -13,8 +13,7 @@ import {
     CardContent,
 } from '@mui/material';
 import {
-    Add as AddIcon,
-    EditOutlined as EditOutlinedIcon
+    Add as AddIcon
 } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import { Flavor, flavorConfigs } from '@/types/flavors';
@@ -39,9 +38,17 @@ export default function JobsiteSelector({
     
     const [selectedJobsite, setSelectedJobsite] = useState<number | null>(null);
     const [openModal, setOpenModal] = useState(false);
+    const [editingJobsite, setEditingJobsite] = useState<JobsiteCardData | null>(null);
 
-    const handleOpenModal = () => setOpenModal(true);
-    const handleCloseModal = () => setOpenModal(false);
+    const handleOpenModal = () => {
+        setEditingJobsite(null);
+        setOpenModal(true);
+    };
+    
+    const handleCloseModal = () => {
+        setOpenModal(false);
+        setEditingJobsite(null);
+    };
 
     const handleSaveJobsite = (data: JobsiteFormData) => {
         try {
@@ -57,7 +64,8 @@ export default function JobsiteSelector({
 
     const handleEditJobsite = (jobsite: JobsiteCardData) => {
         console.log('Editing jobsite:', jobsite);
-        // Aquí iría la lógica para editar el jobsite
+        setEditingJobsite(jobsite);
+        setOpenModal(true);
     };
 
     const handleNext = () => {
@@ -283,20 +291,20 @@ export default function JobsiteSelector({
                                                     </Box>
                                                     <Button
                                                         variant="text"
-                                                        startIcon={<EditOutlinedIcon sx={{ fontSize: { xs: 14, sm: 16 } }} />}
                                                         onClick={() => handleEditJobsite(jobsite)}
                                                         sx={{
                                                             color: '#000000',
                                                             textTransform: 'capitalize',
-                                                            gap: 0.5,
                                                             minWidth: 'auto',
                                                             fontSize: { xs: '12px', sm: '14px' },
                                                             px: { xs: 1, sm: 2 },
                                                             py: { xs: 0.5, sm: 1 },
                                                             flexShrink: 0,
                                                             alignSelf: 'flex-start',
+                                                            textDecoration: 'underline',
                                                             '&:hover': {
-                                                                backgroundColor: 'transparent'
+                                                                backgroundColor: 'transparent',
+                                                                textDecoration: 'underline'
                                                             }
                                                         }}
                                                     >
@@ -323,12 +331,13 @@ export default function JobsiteSelector({
                 </Box>
             </Container>
 
-            {/* Modal para crear nuevo jobsite */}
+            {/* Modal para crear/editar jobsite */}
             <CreateJobsiteModal
                 open={openModal}
                 onClose={handleCloseModal}
                 onSave={handleSaveJobsite}
                 selectedFlavor={selectedFlavor}
+                editingJobsite={editingJobsite}
             />
         </Box>
     );

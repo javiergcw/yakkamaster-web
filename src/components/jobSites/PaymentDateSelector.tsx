@@ -304,9 +304,8 @@ const PaymentDateSelector: React.FC<PaymentDateSelectorProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    '& .MuiBackdrop-root': {
-                        backgroundColor: 'transparent'
-                    }
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    p: { xs: 2, sm: 0 }
                 }}
             >
                  <Box
