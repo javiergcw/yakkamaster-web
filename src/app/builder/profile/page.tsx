@@ -24,6 +24,7 @@ import {
     ChevronRight as ChevronRightIcon
 } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
+import { Routes } from '@/routes/Routes';
 
 export default function ProfilePage() {
     const router = useRouter();
@@ -33,8 +34,31 @@ export default function ProfilePage() {
     };
 
     const handleMenuClick = (action: string) => {
-        console.log(`Clicked: ${action}`);
-        // Aquí puedes agregar la lógica para cada acción del menú
+        switch (action) {
+            case 'personal-details':
+                router.push(Routes.BUILDER_PROFILE_EDIT);
+                break;
+            case 'help':
+                // Abrir WhatsApp con el número especificado
+                const phoneNumber = '+61416985326'; // +61 416 985 326 sin espacios
+                const whatsappUrl = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}`;
+                window.open(whatsappUrl, '_blank');
+                break;
+            case 'terms':
+                // Abrir términos y condiciones en nueva pestaña
+                window.open('https://yakkalabour.com.au/terms-and-conditions/', '_blank');
+                break;
+            case 'delete-account':
+                // Abrir formulario de eliminación de cuenta en nueva pestaña
+                window.open('https://ramiro41.typeform.com/to/uVpMQCrZ', '_blank');
+                break;
+            case 'logout':
+                // TODO: Implementar funcionalidad de logout
+                break;
+            default:
+                // Acción no implementada
+                break;
+        }
     };
 
     return (
@@ -69,62 +93,15 @@ export default function ProfilePage() {
                         {/* Logo YAKKA */}
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <Box
+                                component="img"
+                                src="/YAKKA.webp"
+                                alt="YAKKA Logo"
                                 sx={{
-                                    width: { xs: 32, sm: 40 },
-                                    height: { xs: 32, sm: 40 },
-                                    backgroundColor: '#000000',
-                                    clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    position: 'relative'
+                                    width: { xs: 100, sm: 150 },
+                                    height: { xs: 30, sm: 40 },
+                                    objectFit: 'contain'
                                 }}
-                            >
-                                {/* Casco amarillo */}
-                                <Box
-                                    sx={{
-                                        width: { xs: 16, sm: 20 },
-                                        height: { xs: 12, sm: 16 },
-                                        backgroundColor: '#FFD700',
-                                        borderRadius: '50% 50% 40% 40%',
-                                        position: 'relative',
-                                        '&::after': {
-                                            content: '""',
-                                            position: 'absolute',
-                                            top: 2,
-                                            left: '50%',
-                                            transform: 'translateX(-50%)',
-                                            width: 2,
-                                            height: 8,
-                                            backgroundColor: '#000000',
-                                            borderRadius: '1px'
-                                        }
-                                    }}
-                                />
-                                {/* Letra Y */}
-                                <Typography
-                                    sx={{
-                                        position: 'absolute',
-                                        bottom: 2,
-                                        color: '#000000',
-                                        fontWeight: 'bold',
-                                        fontSize: { xs: '10px', sm: '12px' },
-                                        lineHeight: 1
-                                    }}
-                                >
-                                    Y
-                                </Typography>
-                            </Box>
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    fontWeight: 'bold',
-                                    color: '#000000',
-                                    fontSize: { xs: '18px', sm: '24px' }
-                                }}
-                            >
-                                YAKKA
-                            </Typography>
+                            />
                         </Box>
 
                         {/* Botón Back circular al lado del logo */}

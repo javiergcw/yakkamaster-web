@@ -24,19 +24,8 @@ import {
   Tooltip
 } from '@mui/material';
 import {
-  Star,
-  CheckCircle,
-  Cancel,
-  ThumbUp,
-  ThumbDown,
-  Speed,
-  Group,
-  Psychology,
-  Engineering,
-  HealthAndSafety,
-  Restaurant,
-  Sports,
-  Build
+  KeyboardArrowDown,
+  KeyboardArrowUp
 } from '@mui/icons-material';
 import { Flavor, flavorConfigs } from '@/types/flavors';
 
@@ -73,25 +62,24 @@ interface ReferenceWidgetProps {
 }
 
 const badgeOptions = [
-  { id: 'punctual', label: 'Punctual', icon: <Speed />, color: '#4CAF50' },
-  { id: 'teamwork', label: 'Team Player', icon: <Group />, color: '#2196F3' },
-  { id: 'creative', label: 'Creative', icon: <Psychology />, color: '#9C27B0' },
-  { id: 'technical', label: 'Technical', icon: <Engineering />, color: '#FF9800' },
-  { id: 'reliable', label: 'Reliable', icon: <CheckCircle />, color: '#4CAF50' },
-  { id: 'leadership', label: 'Leadership', icon: <Star />, color: '#F44336' },
-  { id: 'safety', label: 'Safety', icon: <HealthAndSafety />, color: '#795548' },
-  { id: 'hospitality', label: 'Hospitality', icon: <Restaurant />, color: '#E91E63' },
-  { id: 'sports', label: 'Athletic', icon: <Sports />, color: '#FF6B35' },
-  { id: 'construction', label: 'Construction', icon: <Build />, color: '#607D8B' }
+  { id: 'on_time', label: 'On Time', image: '/badges/on_time.png' },
+  { id: 'positive', label: 'Positive Attitude', image: '/badges/positive.png' },
+  { id: 'pronleme', label: 'Problem Solver', image: '/badges/pronleme.png' },
+  { id: 'extra_mile', label: 'Extra Mile', image: '/badges/extra_mile.png' },
+  { id: 'strong', label: 'Strong Player', image: '/badges/strong.png' },
+  { id: 'quick', label: 'Quick Learner', image: '/badges/quick.png' },
+  { id: 'detail_focus', label: 'Detail Focus', image: '/badges/detail_focus.png' },
+  { id: 'good_communication', label: 'Good Communication', image: '/badges/good_communication.png' }
 ];
 
 export default function ReferenceWidget({ selectedFlavor, workerData }: ReferenceWidgetProps) {
   const config = flavorConfigs[selectedFlavor];
   const [formData, setFormData] = useState<ReferenceFormData>({
-    reliability: 3,
+    reliability: 0,
     badges: [],
     description: ''
   });
+  const [showFullProfile, setShowFullProfile] = useState(false);
 
   // Datos de ejemplo si no se proporcionan
   const defaultWorkerData: WorkerData = {
@@ -155,22 +143,7 @@ export default function ReferenceWidget({ selectedFlavor, workerData }: Referenc
   };
 
   const getFlavorBadges = () => {
-    switch (selectedFlavor) {
-      case Flavor.SPORT:
-        return badgeOptions.filter(badge => 
-          ['punctual', 'teamwork', 'leadership', 'sports', 'reliable'].includes(badge.id)
-        );
-      case Flavor.LABOUR:
-        return badgeOptions.filter(badge => 
-          ['punctual', 'technical', 'reliable', 'construction', 'safety'].includes(badge.id)
-        );
-      case Flavor.HOSPITALITY:
-        return badgeOptions.filter(badge => 
-          ['punctual', 'hospitality', 'teamwork', 'creative', 'reliable'].includes(badge.id)
-        );
-      default:
-        return badgeOptions;
-    }
+    return badgeOptions;
   };
 
   return (
@@ -215,8 +188,16 @@ export default function ReferenceWidget({ selectedFlavor, workerData }: Referenc
               ))}
             </Box>
 
-            {/* Education */}
-            <Box mb={3}>
+            {/* Education - Solo visible en desktop o cuando showFullProfile es true en móvil */}
+            <Box 
+              mb={3} 
+              sx={{ 
+                display: { 
+                  xs: showFullProfile ? 'block' : 'none', 
+                  md: 'block' 
+                } 
+              }}
+            >
               <Typography variant="h6" fontWeight="bold" mb={2} color={config.primaryColor}>
                 Education
               </Typography>
@@ -234,9 +215,17 @@ export default function ReferenceWidget({ selectedFlavor, workerData }: Referenc
               ))}
             </Box>
 
-            {/* Skills */}
-            <Box>
-              <Typography variant="h6" fontWeight="bold" mb={2} color={config.primaryColor}>
+            {/* Skills - Solo visible en desktop o cuando showFullProfile es true en móvil */}
+            <Box 
+              mb={3}
+              sx={{ 
+                display: { 
+                  xs: showFullProfile ? 'block' : 'none', 
+                  md: 'block' 
+                } 
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold" mb={2} color="#000000">
                 Skills
               </Typography>
               <Box display="flex" flexWrap="wrap" gap={1}>
@@ -246,15 +235,34 @@ export default function ReferenceWidget({ selectedFlavor, workerData }: Referenc
                     label={skill}
                     variant="outlined"
                     sx={{
-                      borderColor: config.accentColor,
-                      color: config.primaryColor,
+                      borderColor: '#000000',
+                      color: '#000000',
                       '&:hover': {
-                        backgroundColor: config.accentColor + '20'
+                        backgroundColor: '#f5f5f5'
                       }
                     }}
                   />
                 ))}
               </Box>
+            </Box>
+
+            {/* Botón View More/Less en móvil - Dentro del Paper */}
+            <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+              <Button
+                variant="text"
+                endIcon={showFullProfile ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                onClick={() => setShowFullProfile(!showFullProfile)}
+                sx={{
+                  color: config.primaryColor,
+                  textTransform: 'none',
+                  width: '100%',
+                  '&:hover': {
+                    backgroundColor: config.primaryColor + '10'
+                  }
+                }}
+              >
+                {showFullProfile ? 'View Less' : 'View More'}
+              </Button>
             </Box>
           </Paper>
         </Box>
@@ -301,33 +309,50 @@ export default function ReferenceWidget({ selectedFlavor, workerData }: Referenc
               <Typography variant="h6" mb={2}>
                 2. What badges would you give to this worker?
               </Typography>
-              <Box display="flex" flexWrap="wrap" gap={1}>
+              <Box display="flex" flexWrap="wrap" gap={1.5}>
                 {getFlavorBadges().map((badge) => (
                   <Tooltip key={badge.id} title={badge.label}>
-                    <Chip
-                      icon={badge.icon}
-                      label={badge.label}
-                      clickable
-                      color={formData.badges.includes(badge.id) ? 'primary' : 'default'}
-                      variant={formData.badges.includes(badge.id) ? 'filled' : 'outlined'}
+                    <Box
                       onClick={() => handleBadgeToggle(badge.id)}
                       sx={{
-                        ...(formData.badges.includes(badge.id) && {
-                          backgroundColor: badge.color,
-                          color: 'white',
-                          '&:hover': {
-                            backgroundColor: badge.color + 'CC',
-                          }
-                        }),
-                        ...(!formData.badges.includes(badge.id) && {
-                          borderColor: badge.color,
-                          color: badge.color,
-                          '&:hover': {
-                            backgroundColor: badge.color + '20',
-                          }
-                        })
+                        display: 'flex',
+                        alignItems: 'center',
+                        p: 1.5,
+                        borderRadius: 2,
+                        border: '1px solid #000000',
+                        backgroundColor: formData.badges.includes(badge.id) ? config.primaryColor : '#ffffff',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        minWidth: 'fit-content',
+                        '&:hover': {
+                          backgroundColor: config.primaryColor,
+                          transform: 'translateY(-1px)',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                        }
                       }}
-                    />
+                    >
+                      <Box
+                        component="img"
+                        src={badge.image}
+                        alt={badge.label}
+                        sx={{
+                          width: 24,
+                          height: 24,
+                          objectFit: 'contain',
+                          mr: 1,
+                          filter: formData.badges.includes(badge.id) ? 'none' : 'grayscale(100%)',
+                          transition: 'filter 0.3s ease'
+                        }}
+                      />
+                      <Typography 
+                        variant="body2" 
+                        sx={{ 
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {badge.label}
+                      </Typography>
+                    </Box>
                   </Tooltip>
                 ))}
               </Box>

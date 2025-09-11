@@ -17,12 +17,14 @@ import {
     Close as CloseIcon
 } from '@mui/icons-material';
 import { Flavor, flavorConfigs } from '@/types/flavors';
+import { JobsiteCardData } from './JobsiteCard';
 
 interface CreateJobsiteModalProps {
     open: boolean;
     onClose: () => void;
     onSave: (data: JobsiteFormData) => void;
     selectedFlavor?: Flavor;
+    editingJobsite?: JobsiteCardData | null;
 }
 
 export interface JobsiteFormData {
@@ -36,7 +38,8 @@ export default function CreateJobsiteModal({
     open, 
     onClose, 
     onSave, 
-    selectedFlavor = Flavor.LABOUR 
+    selectedFlavor = Flavor.LABOUR,
+    editingJobsite = null
 }: CreateJobsiteModalProps) {
     const config = flavorConfigs[selectedFlavor];
     
@@ -46,6 +49,27 @@ export default function CreateJobsiteModal({
         suburb: '',
         additionalInfo: ''
     });
+
+    // Pre-llenar formulario cuando se está editando
+    React.useEffect(() => {
+        if (editingJobsite && open) {
+            // Extraer información del jobsite para pre-llenar el formulario
+            setFormData({
+                city: editingJobsite.location || '',
+                address: editingJobsite.title || '',
+                suburb: '', // No tenemos suburb en JobsiteCardData, se puede agregar después
+                additionalInfo: editingJobsite.description || ''
+            });
+        } else if (!editingJobsite && open) {
+            // Limpiar formulario cuando se crea uno nuevo
+            setFormData({
+                city: '',
+                address: '',
+                suburb: '',
+                additionalInfo: ''
+            });
+        }
+    }, [editingJobsite, open]);
 
     const handleInputChange = (field: keyof JobsiteFormData) => (event: any) => {
         setFormData({
@@ -97,7 +121,7 @@ export default function CreateJobsiteModal({
                             fontSize: '20px'
                         }}
                     >
-                        Where do you need labourers?
+                        {editingJobsite ? 'Edit Jobsite' : 'Where do you need labourers?'}
                     </Typography>
                     <IconButton
                         onClick={onClose}
@@ -235,7 +259,7 @@ export default function CreateJobsiteModal({
                             }
                         }}
                     >
-                        Save Jobsite
+                        {editingJobsite ? 'Update Jobsite' : 'Save Jobsite'}
                     </Button>
                 </Box>
             </Box>

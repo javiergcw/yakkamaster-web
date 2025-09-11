@@ -2,12 +2,15 @@
 
 import { ReferenceWidget } from '@/widgets/reference';
 import { Flavor } from '@/types/flavors';
+import { CURRENT_FLAVOR } from '@/types/favorGlobal';
 
 export default function ReferencePage() {
-  // Por defecto usamos SPORT, pero esto se puede cambiar dinámicamente
-  const selectedFlavor = Flavor.SPORT;
+  // Usar flavor global
+  const selectedFlavor = CURRENT_FLAVOR;
 
   return (
-    <ReferenceWidget selectedFlavor={selectedFlavor} />
+    <div style={{ backgroundColor: "#ffffff" }}>    
+      <ReferenceWidget selectedFlavor={selectedFlavor} />
+    </div>
   );
 }

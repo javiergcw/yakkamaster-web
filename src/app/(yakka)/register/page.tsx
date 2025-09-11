@@ -22,16 +22,17 @@ import {
 import { useRouter } from 'next/navigation';
 import { Routes } from '@/routes/Routes';
 import { Flavor, flavorConfigs } from '@/types/flavors';
+import { CURRENT_FLAVOR, getCurrentFlavorConfig } from '@/types/favorGlobal';
 
 interface RegisterPageProps {
   flavor?: Flavor;
 }
 
-const RegisterPage: React.FC<RegisterPageProps> = ({ flavor = Flavor.LABOUR  }) => {
+const RegisterPage: React.FC<RegisterPageProps> = ({ flavor = CURRENT_FLAVOR  }) => {
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const config = flavorConfigs[flavor];
+  const config = getCurrentFlavorConfig();
 
   const handleWorkClick = () => {
     // Navegar a la página de trabajo con QR

@@ -148,7 +148,7 @@ export default function WorkerQuantitySelector({
                             </Button>
                         ))}
                         
-                        {/* Botón personalizado (sin número) */}
+                        {/* Botón personalizado (More than 5) */}
                         <Button
                             variant="outlined"
                             onClick={handleCustomClick}
@@ -162,7 +162,7 @@ export default function WorkerQuantitySelector({
                                 py: 1,
                                 px: 2,
                                 textTransform: 'none',
-                                fontSize: '24px',
+                                fontSize: selectedQuantity && !quantities.includes(selectedQuantity) ? '24px' : '16px',
                                 fontWeight: 'bold',
                                 minHeight: '60px',
                                 '&:hover': {
@@ -171,7 +171,7 @@ export default function WorkerQuantitySelector({
                                 }
                             }}
                         >
-                            {selectedQuantity && !quantities.includes(selectedQuantity) ? selectedQuantity : ''}
+                            {selectedQuantity && !quantities.includes(selectedQuantity) ? selectedQuantity : 'More than 5'}
                         </Button>
                     </Box>
                 </Box>

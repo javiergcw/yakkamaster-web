@@ -1,12 +1,13 @@
 'use client';
 
 import { Flavor } from '@/types/flavors';
+import { CURRENT_FLAVOR } from '@/types/favorGlobal';
 import { UnifiedDoctorProfile } from '@/widgets/profileComponents';
 import { Container } from '@mui/material';
 
 export default function ProfilePage() {
-  // Usando el mismo flavor que en la página principal
-  const selectedFlavor = Flavor.SPORT; // Cambia aquí: SPORT, LABOUR, HOSPITALITY
+  // Usar flavor global
+  const selectedFlavor = CURRENT_FLAVOR;
 
   return (
       <UnifiedDoctorProfile 
